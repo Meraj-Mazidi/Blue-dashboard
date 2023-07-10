@@ -1,113 +1,218 @@
-import Image from 'next/image'
+"use client";
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
+import { useTheme } from "next-themes";
+import {
+  Main,
+  Menu,
+  TablesList,
+  ToDoList,
+  UserProfile,
+  Map,
+  KanbanList,
+} from "@/Sections";
+import { Navbar } from "@/Components";
+import { Drawer, Modal } from "antd";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { motion } from "framer-motion";
+import TextField from "@mui/material/TextField";
+import { IoSearchOutline } from "react-icons/io5";
+
+const notifications = [
+  {
+    text: "New Message from Robert Johnson",
+  },
+  {
+    text: "New Customer data added",
+  },
+  {
+    text: "You have 3 new contact requests",
+  },
+  {
+    text: "The Performance chart needs an update",
+  },
+  {
+    text: "You have 5 unread messages in you inbox",
+  },
+];
 
 export default function Home() {
+  const { theme, setTheme } = useTheme();
+  const [menuSelected, setMenuSelected] = useState("Dashboard");
+  const [open, setOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [closeMenu, setCloseMenu] = useState(false);
+
+  // For Mobile view - Gets window size
+  const size = useWindowSize();
+  let isTablet = size.width > 650 && size.width < 1024 ? true : false;
+
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: undefined,
+    });
+
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+        });
+      }
+      window.addEventListener("resize", handleResize);
+      handleResize();
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowSize;
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <>
+      <Head>
+        <title>Blue Dashboard | Meraj Mazidi</title>
+        {/* Popins Font */}
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+            rel="stylesheet"
+          />
+        </style>
+      </Head>
+
+      <main
+        className={`w-full grid grid-cols-1 lg:grid-cols-8 xl:grid-cols-6 xl:gap-x-5 pop relative !transition-all !duration-500  ${
+          closeMenu && "!grid-cols-12 !gap-x-0 !transition-all !duration-500"
+        }`}
+      >
+        <div
+          className={`lg:col-span-2 xl:col-span-1 relative hidden lg:block !transition-all !duration-500 ${
+            closeMenu && "lg:!col-span-1"
+          }`}
+        >
+          <Menu
+            menuSelected={menuSelected}
+            setMenuSelected={setMenuSelected}
+            mode="normal"
+            setCloseMenu={setCloseMenu}
+            closeMenu={closeMenu}
+          />
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          className={`lg:col-span-6 xl:col-span-5 !transition-all !duration-500 ${
+            closeMenu && "lg:!col-span-11"
+          }`}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          {/* Navbar */}
+          <Navbar
+            setTheme={setTheme}
+            theme={theme}
+            setOpen={setOpen}
+            setIsModalOpen={setIsModalOpen}
+            setShowSearch={setShowSearch}
+            setCloseMenu={setCloseMenu}
+            closeMenu={closeMenu}
+          />
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          {/* Content */}
+          {menuSelected === "Dashboard" ? (
+            <Main />
+          ) : menuSelected === "Table List" ? (
+            <TablesList />
+          ) : menuSelected === "To Do List" ? (
+            <ToDoList />
+          ) : menuSelected === "User Profile" ? (
+            <UserProfile />
+          ) : menuSelected === "Google Map" ? (
+            <Map />
+          ) : menuSelected === "Kanban" ? (
+            <KanbanList />
+          ) : (
+            <></>
+          )}
+        </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+        {/* Search Box */}
+        {showSearch && (
+          <div className="absolute top-[150px] flex justify-center items-center w-full z-[9999999]">
+            <motion.div
+              className="w-[90%] md:w-[50%] h-[100px] dark:bg-white bg-[#1f8ef1] bg-[linear-gradient(160deg, #1f8ef1 0.5%, #80D0C7 100%)] rounded-md p-5 flex items-center gap-x-3 text-base"
+              initial={{ y: "-200px" }}
+              animate={{ y: "0" }}
+              exit={{ y: "-200px" }}
+            >
+              <IoSearchOutline className="text-[#1f8ef1] text-3xl" />
+              <TextField
+                fullWidth
+                label="Search Whatever you want..."
+                id="fullWidth"
+              />
+            </motion.div>
+          </div>
+        )}
+        {showSearch && (
+          <div
+            className="absolute w-full h-full top-0 bottom-0 left-0 right-0 backdrop-blur-[50px] base-blur bg-[rgba(43,45,66,0.3)] opacity-50"
+            onClick={() => setShowSearch(false)}
+          />
+        )}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Drawer - Menu */}
+        <Drawer
+          title={false}
+          placement="left"
+          width={isTablet ? "50%" : "100%"}
+          open={open}
+          closable={false}
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          <Menu
+            menuSelected={menuSelected}
+            setMenuSelected={setMenuSelected}
+            setOpen={setOpen}
+            mode="drawer"
+          />
+        </Drawer>
+
+        {/* Notification Modal */}
+        <Modal
+          title={
+            <div className="flex items-center gap-x-4">
+              <span className="w-[50px] h-[50px] relative">
+                <img
+                  src="/images/anime3.png"
+                  alt="User Avatar"
+                  className="w-[50px] h-[50px] rounded-full object-cover object-top"
+                />
+                <span className="w-[10px] h-[10px] bg-red-600 rounded-full left-1 top-0 z-20 absolute animate-pulse" />
+              </span>
+              <p className="text-xl">Your Notifications</p>
+            </div>
+          }
+          open={isModalOpen}
+          onCancel={() => setIsModalOpen(false)}
+          footer={false}
+          centered
+        >
+          <div className="flex flex-col border-t pt-5">
+            {notifications.map((item, i) => (
+              <div
+                className="flex items-center gap-x-5 border-b py-4 hover:bg-gray-100 cursor-pointer"
+                key={i}
+              >
+                <span className="w-[20px] relative">
+                  <IoIosNotificationsOutline className="text-3xl" />
+                  <span className="w-[10px] h-[10px] bg-red-600 rounded-full left-0 top-0 z-20 absolute" />
+                </span>
+                <p className="text-base font-medium">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </Modal>
+      </main>
+    </>
+  );
 }

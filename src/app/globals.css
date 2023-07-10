@@ -2,26 +2,151 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  body {
+    @apply bg-[#f5f6fa] dark:bg-[#1e1e29];
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1d8cf8;
+
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3358f4;
+}
+
+.pop {
+  font-family: "Poppins", sans-serif;
+}
+
+.activeBtn {
+  background-image: linear-gradient(
+    to bottom left,
+    #1d8cf8,
+    #3358f4,
+    #1d8cf8
+  ) !important;
+}
+
+.ant-table,
+.ant-table-thead > tr > .ant-table-cell,
+.editable-row > td {
+  background-color: transparent !important;
+  border: 1px solid #3358f4 !important;
+  color: white !important;
+}
+
+.ant-pagination-item-link {
+  color: #3358f4;
+}
+
+.ant-table-content > table,
+.ant-table-content {
+  border: none !important;
+  border-collapse: unset !important;
+  border-radius: 0px !important;
+}
+
+.ant-table-cell-row-hover,
+.ant-table-row {
+  background: transparent !important;
+}
+
+.ant-badge-status-text {
+  color: white !important;
+}
+
+.ant-table,
+.ant-table-thead > tr > td {
+  border: none !important;
+}
+
+.ant-table-thead {
+  border: none !important;
+}
+
+.ant-table-cell::before {
+  display: none !important;
+}
+
+.ant-btn-sm {
+  background-color: #1f8ef1 !important;
+  color: white !important;
+}
+
+.MuiInputBase-input,
+.MuiFormLabel-root {
+  color: white !important;
+  font-size: 16px !important;
+}
+
+.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border: 1px solid #1d8cf8 !important;
+}
+
+.MuiInputLabel-root {
+  color: #1d8cf8 !important;
+  font-size: 16px !important;
+}
+
+.profile-card-1 {
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    90deg,
+    rgba(35, 127, 247, 0.8) 0,
+    rgba(225, 78, 202, 0)
+  );
+}
+
+.sh {
+  box-shadow: 0 0 18px white;
+}
+
+.sh2 {
+  box-shadow: 0 0 8px #1d8cf8;
+}
+
+/* Kanban */
+
+.react-kanban-column {
+  background-color: transparent !important;
+  border: 1px solid #1d8cf8 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 2px #1d8cf8;
+}
+
+.react-kanban-card,
+.react-kanban-card-adder-form,
+.react-kanban-card-adder-form__button,
+.react-kanban-card-adder-form__title,
+.react-kanban-card-adder-form__description {
+  background-color: transparent !important;
+  border: 1px solid #1d8cf8 !important;
+  border-radius: 10px !important;
+}
+
+.react-kanban-card-adder-form__title,
+.react-kanban-card-adder-form__description {
+  padding: 5px !important;
+}
+
+.react-kanban-card__title {
+  border-bottom: 1px solid #1d8cf8 !important;
 }
