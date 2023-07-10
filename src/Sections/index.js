@@ -5,3 +5,4 @@ export { default as ToDoList } from "./ToDoList";
 export { default as UserProfile } from "./UserProfile";
 export { default as Map } from "./Map";
 export { default as KanbanList } from "./KanbanList";
+export { default as Doc } from "./Doc";
