@@ -71,6 +71,10 @@ export default function Home() {
     <>
       <Head>
         <title>Blue Dashboard | Meraj Mazidi</title>
+        <meta name="description" content="Meraj Mazidi Blue Dashboard" />
+        <meta name="keywords" content="Meraj Mazidi Blue Dashboard" />
+        <meta name="author" content="Meraj Mazidi" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* Popins Font */}
         <style>
           @import

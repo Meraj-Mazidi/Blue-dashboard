@@ -5,10 +5,6 @@ import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Meraj's Blue Dashboard",
-  description: "Next.js Dshboard | Meraj Mazidi",
-};
 
 export default function RootLayout({ children }) {
   return (

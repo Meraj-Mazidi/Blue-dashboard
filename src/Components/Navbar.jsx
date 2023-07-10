@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BiSolidDownArrow } from "react-icons/bi";
 import { HiOutlineMoon, HiMoon } from "react-icons/hi";
 import { TfiMenuAlt } from "react-icons/tfi";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { SmileOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import { TbMessageCircleDown, TbProgressBolt } from "react-icons/tb";
 import { VscAccount } from "react-icons/vsc";
 import { ImNotification } from "react-icons/im";
 import { RiMenuFoldLine, RiMenuUnfoldLine } from "react-icons/ri";
-import { motion } from "framer-motion";
 
 const avatar = [
   {
